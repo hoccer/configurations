@@ -1,0 +1,8 @@
+To deploy this code just run
+
+$ scp -r *god extensions/ xadmin@wolke.hoccer.com:/etc/god/
+$ ssh xadmin@wolke.hoccer.com -x "sudo god load /etc/god/hoccer.god"
+
+Check that everythin works fine with
+
+$ ssh xadmin@wolke.hoccer.com -x "sudo god status"
