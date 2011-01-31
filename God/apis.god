@@ -50,8 +50,8 @@
 
     deamon = "/usr/local/bin/node"
 
-    w.start = "node /var/www/filecache.beta.hoccer.com/filecache.js"
-    w.stop = "mongo --eval 'db.shutdownServer();' admin"
+    w.start = "node /var/www/filecache.beta.hoccer.com/filecache.js --port=9212"
+    #w.stop = "mongo --eval 'db.shutdownServer();' admin"
 
     w.behavior(:clean_pid_file)
 
