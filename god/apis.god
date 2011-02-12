@@ -1,7 +1,4 @@
-#%w{beta sandbox production}.each do |tire|
-%w{beta}.each do |tire|
-
-
+%w{beta sandbox production}.each do |tire|
   God.watch do |w|
     w.name = "#{tire}_grouper"
     w.group = "#{tire}"
@@ -50,7 +47,7 @@
 
     deamon = "/usr/local/bin/node"
 
-    w.start = "node /var/www/filecache.beta.hoccer.com/filecache.js --port=9212"
+    w.start = "node /var/www/filecache.#{tire}.hoccer.com/filecache.js --port=#{get_port( 'filecache', tire)}"
     #w.stop = "mongo --eval 'db.shutdownServer();' admin"
 
     w.behavior(:clean_pid_file)

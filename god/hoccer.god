@@ -34,7 +34,7 @@ God.watch do |w|
       on.condition(:http_response_code) do |c|
         c.host = 'developer.hoccer.com'
         c.path = '/'
-        c.code_is_not = 302 # should use 200, but https is not yet implemented in God
+        c.code_is_not = 200 # should use 200, but https is not yet implemented in God
         c.notify = @developer_warn
       end
     end

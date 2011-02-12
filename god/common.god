@@ -73,6 +73,8 @@ def thin_monitoring(w, options = {})
   
   w.pid_file = "/var/run/thin/#{options[:service]}.#{options[:tire]}.pid"
   w.behavior(:clean_pid_file)  
+  #File.chown(nil, 33, w.pid_file)
+  #File.chmod(0664, w.pid_file)
 
   apply_default_state_transitions(w)
 end

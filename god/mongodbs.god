@@ -31,7 +31,7 @@ God.watch do |w|
 
     on.condition(:disk_usage) do |c|
       c.interval = 1.hour
-      c.above = 50.percent
+      c.above = 70.percent
       c.mount_point = "/"
       c.notify = @developer_warn
     end
