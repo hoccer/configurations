@@ -1,0 +1,34 @@
+#!/usr/local/rvm/bin/munin_ruby
+require 'time'
+require 'munchies'
+
+if ARGV.any?{|x| x == "config"}
+
+  puts "graph_title Absolute Successful Shares"
+  puts "graph_vlabel Codes"
+  puts "graph_args --base 1000 -l 0 -u 100 --rigid"
+  puts "graph_period minute"
+  %w(Success).each_with_index do |code, index|
+    puts "c#{code}.label #{code}"
+    puts "c#{code}.type GAUGE"
+    puts "c#{code}.draw AREA"
+    puts "c#{code}.info #{code}"
+    puts "c#{code}.min 0"
+  end
+
+else
+
+  logger = Munchies::Logfile.new( '/var/log/pound.log' )
+
+  lines = logger.to_a
+
+  success = lines.select do |x|
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\bPUT\b/ && x =~ /\bHTTP\/1\.1\"\s200\b/
+  end
+
+  fails = lines.select do |x|
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\bPUT\b/ && x =~ /\bHTTP\/1\.1\"\s(204|409)\b/
+  end
+
+  puts "cSuccess.value #{(success.size.to_f/(success.size + fails.size))*100}"
+end

@@ -1,0 +1,37 @@
+#!/usr/local/rvm/bin/munin_ruby
+require 'time'
+require 'munchies'
+
+if ARGV.any?{|x| x == "config"}
+
+  puts "graph_title Actions per Client Type"
+  puts "graph_vlabel Codes"
+  puts "graph_args --base 1000 -l 0 -u 200 --rigid"
+  puts "graph_period minute"
+  %w(Success Fail).each_with_index do |code, index|
+    puts "c#{code}.label #{code}"
+    puts "c#{code}.type GAUGE"
+    puts "c#{code}.draw LINE1"
+    puts "c#{code}.info #{code}"
+    puts "c#{code}.min 0"
+  end
+
+else
+
+  logger = Munchies::Logfile.new( '/var/log/pound.log' )
+
+  lines = logger.to_a
+
+  actions = lines.select do |x|
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\b(PUT|GET)\b/ && x =~ /\bHTTP\/1\.1\"/
+  end
+
+  puts "cAndroid.value #{actions.select{|l| l.include? 'Android' }.size }"
+  puts "ciPhone.value #{actions.select{|l| l.include? 'iPhone' }.size }"
+  puts "ciPad.value #{actions.select{|l| l.include? 'iPad' }.size }"
+  puts "ciPod.value #{actions.select{|l| l.include? 'iPod' }.size }"
+  puts "ciChrome.value #{actions.select{|l| l.include? 'Chrome' }.size }"
+  puts "ciFirefox.value #{actions.select{|l| l.include? 'Firefox' }.size }"
+  puts "ciExplorer.value #{actions.select{|l| l.include? 'Explorer' }.size }"
+
+end
