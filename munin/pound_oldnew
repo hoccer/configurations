@@ -1,0 +1,31 @@
+#!/usr/local/rvm/bin/munin_ruby
+require 'time'
+require 'munchies'
+
+if ARGV.any?{|x| x == "config"}
+
+  puts "graph_title Old API vs New API"
+  puts "graph_vlabel Codes"
+  puts "graph_args --base 1000 -l 0 -u 2000 --rigid"
+  puts "graph_period minute"
+  %w(new_api old_api).each_with_index do |code, index|
+    puts "c#{code}.label #{code}"
+    puts "c#{code}.type GAUGE"
+    puts "c#{code}.draw LINE1"
+    puts "c#{code}.info #{code}"
+    puts "c#{code}.min 0"
+  end
+
+else
+
+  logger = Munchies::Logfile.new( '/var/log/pound.log' )
+
+  lines = logger.to_a
+
+  new_api = lines.select { |x| x =~ /\b(linccer|filecache)\.hoccer\.com\b/ }
+  old_api = lines.select { |x| x =~ /\bapi\.hoccer\.com\b/ }
+
+  puts "cnew_api.value #{new_api.size}"
+  puts "cold_api.value #{old_api.size}"
+
+end
