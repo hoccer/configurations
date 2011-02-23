@@ -23,11 +23,11 @@ else
   lines = logger.to_a
 
   success = lines.select do |x|
-    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\bPUT\b/ && x =~ /\bHTTP\/1\.1\"\s200\b/
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\bPUT\b/ && x =~ /\bHTTP\/1\.1\"\s200\b/ && x =~ /\b\/action\b/
   end
 
   fails = lines.select do |x|
-    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\bPUT\b/ && x =~ /\bHTTP\/1\.1\"\s(204|409)\b/
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\bPUT\b/ && x =~ /\bHTTP\/1\.1\"\s(204|409)\b/ && x =~ /\b\/action\b/
   end
 
   puts "cSuccess.value #{(success.size.to_f/(success.size + fails.size))*100}"
