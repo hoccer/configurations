@@ -30,8 +30,8 @@ else
   puts "ciPhone.value #{actions.select{|l| l.include? 'iPhone' }.size }"
   puts "ciPad.value #{actions.select{|l| l.include? 'iPad' }.size }"
   puts "ciPod.value #{actions.select{|l| l.include? 'iPod' }.size }"
-  puts "ciChrome.value #{actions.select{|l| l.include? 'Chrome' }.size }"
-  puts "ciFirefox.value #{actions.select{|l| l.include? 'Firefox' }.size }"
-  puts "ciExplorer.value #{actions.select{|l| l.include? 'Explorer' }.size }"
+  puts "cChrome.value #{actions.select{|l| l.include? 'Chrome' }.size }"
+  puts "cFirefox.value #{actions.select{|l| l.include? 'Firefox' }.size }"
+  puts "cExplorer.value #{actions.select{|l| l.include? 'Explorer' }.size }"
 
 end
