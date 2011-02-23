@@ -1,0 +1,40 @@
+#!/usr/local/rvm/bin/munin_ruby
+require 'time'
+require 'munchies'
+
+if ARGV.any?{|x| x == "config"}
+
+  puts "graph_title Shares per Server"
+  puts "graph_vlabel Codes"
+  #puts "graph_args --base 1000 -l 0 -u 100 --rigid"
+  puts "graph_period minute"
+  %w(production sandbox beta).each_with_index do |code, index|
+    puts "c#{code}.label #{code}"
+    puts "c#{code}.type GAUGE"
+    puts "c#{code}.draw LINE1"
+    puts "c#{code}.info #{code}"
+    puts "c#{code}.min 0"
+  end
+
+else
+
+  logger = Munchies::Logfile.new( '/var/log/pound.log' )
+
+  lines = logger.to_a
+
+  production = lines.select do |x|
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\bPUT\b/ && x =~ /\b\/action\b/  && x =~ /\bHTTP\/1\.1\"\s200\b/
+  end
+
+  sandbox = lines.select do |x|
+    x =~ /\blinccer-sandbox\.hoccer\.com\b/ && x =~ /\bPUT\b/ && x =~ /\b\/action\b/  && x =~ /\bHTTP\/1\.1\"\s200\b/
+  end
+
+  beta = lines.select do |x|
+    x =~ /\blinccer-beta\.hoccer\.com\b/ && x =~ /\bPUT\b/ && x =~ /\b\/action\b/  && x =~ /\bHTTP\/1\.1\"\s200\b/
+  end
+
+  puts "cproduction.value #{production.size }"
+  puts "csandbox.value #{sandbox.size }"
+  puts "cbeta.value #{beta.size }"
+end
