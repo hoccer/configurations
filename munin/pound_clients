@@ -23,7 +23,7 @@ else
   lines = logger.to_a
 
   actions = lines.select do |x|
-    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\b(PUT|GET)\b/ && x =~ /\bHTTP\/1\.1\"/
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\b(PUT|GET)\b/ && x =~ /\b\/action\b/
   end
 
   puts "cAndroid.value #{actions.select{|l| l.include? 'Android' }.size }"
