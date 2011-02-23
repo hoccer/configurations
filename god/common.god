@@ -1,4 +1,4 @@
-def apply_default_state_transitions(w)
+def apply_default_state_transitions(w, options = {})
 
   # determine the state on startup
   w.transition(:init, { true => :up, false => :start }) do |on|
@@ -31,7 +31,8 @@ def apply_default_state_transitions(w)
   w.transition(:up, :restart) do |on|
     on.condition(:memory_usage) do |c|
       c.interval = 20
-      c.above = 200.megabytes
+      options[:memory_max] |= 200.megabytes
+      c.above = options[:memory_max]
       c.times = [3, 5]
       c.notify = @developer_info
     end

@@ -52,24 +52,7 @@
 
     w.behavior(:clean_pid_file)
 
-    apply_default_state_transitions(w)
-
-    # restart if memory or cpu is too high
-    w.transition(:up, :restart) do |on|
-      on.condition(:memory_usage) do |c|
-        c.interval = 20
-        c.above = 900.megabytes
-        c.times = [3, 5]
-        c.notify = @developer_info
-      end
-    
-      on.condition(:cpu_usage) do |c|
-        c.interval = 10
-        c.above = 40.percent
-        c.times = [3, 5]
-        c.notify = @developer_info
-      end
-    end  
+    apply_default_state_transitions(w, {:memory_above => 900.megabytes})
 
   end
 end
