@@ -70,8 +70,13 @@ def thin_monitoring(w, options = {})
   config = "/etc/thin/#{options[:service]}.#{options[:tire]}.yml"
   
   w.start = "#{thin} start -C #{config}"
-  w.stop = "#{thin} stop -C #{config}"
+  #w.stop = "#{thin} stop -C #{config}"
+  #w.restart = "#{thin} restart -C #{config}"
   
+  # using TERM signal to force emediate shutdown
+  w.stop_signal = 'TERM'
+  w.stop_timeout = 5.seconds
+
   w.pid_file = "/var/run/thin/#{options[:service]}.#{options[:tire]}.pid"
   w.behavior(:clean_pid_file)  
   #File.chown(nil, 33, w.pid_file)
