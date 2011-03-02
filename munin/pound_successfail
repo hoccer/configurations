@@ -8,12 +8,12 @@ if ARGV.any?{|x| x == "config"}
   puts "graph_vlabel Codes"
   puts "graph_args --base 1000 -l 0 -u 100 --rigid"
   puts "graph_period minute"
-  %w(Success Fail).each_with_index do |code, index|
-    puts "c#{code}.label #{code}"
-    puts "c#{code}.type GAUGE"
-    puts "c#{code}.draw LINE1"
-    puts "c#{code}.info #{code}"
-    puts "c#{code}.min 0"
+  %w(success fail).each_with_index do |code, index|
+    puts "#{code}.label #{code}"
+    puts "#{code}.type GAUGE"
+    puts "#{code}.draw LINE1"
+    puts "#{code}.info #{code}"
+    puts "#{code}.min 0"
   end
 
 else
@@ -30,7 +30,7 @@ else
     x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\b(PUT|GET)\b/ && x =~ /\bHTTP\/1\.1\"\s(204|409)\b/ && x =~ /\b\/action\b/
   end
 
-  puts "cSuccess.value #{success.size}"
-  puts "cFail.value #{fails.size}"
+  puts "success.value #{success.size}"
+  puts "fail.value #{fails.size}"
 
 end
