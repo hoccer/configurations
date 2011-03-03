@@ -6,6 +6,7 @@ available_codes = %w(200 201 202 204 301 302 303 401 404 409 410 500 502 503 504
 
 if ARGV.any?{|x| x == "config"}
   puts "graph_title HTTP Status Codes per minute"
+  puts "graph_category pound"
   puts "graph_vlabel Codes"
   puts "graph_args --base 1000 -l 0 -u 1200 --rigid"
   puts "graph_order c#{available_codes.join(' c')}"

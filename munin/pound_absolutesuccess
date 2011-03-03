@@ -4,7 +4,8 @@ require 'munchies'
 
 if ARGV.any?{|x| x == "config"}
 
-  puts "graph_title Successful Actions Rate"
+  puts "graph_title Successful Lincc's"
+  puts "graph_category linccer"
   puts "graph_vlabel Codes"
   puts "graph_args --base 1000 -l 0 -u 100 --rigid"
   puts "graph_period minute"
