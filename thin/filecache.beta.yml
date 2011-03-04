@@ -1,0 +1,16 @@
+---
+chdir: /var/www/filecache.beta.hoccer.com
+user: www-data
+group: www-data
+environment: development
+address: 0.0.0.0
+port: 9212
+timeout: 30
+log: log/thin.log
+pid: /var/run/thin/filecache.beta.pid
+max_conns: 1024
+max_persistent_conns: 512
+require: []
+
+wait: 30
+daemonize: true

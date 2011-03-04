@@ -1,0 +1,16 @@
+---
+chdir: /var/www/filecache.sandbox.hoccer.com
+user: www-data
+group: www-data
+environment: production
+address: 0.0.0.0
+port: 9312
+timeout: 30
+log: log/thin.log
+pid: /var/run/thin/filecache.sandbox.pid
+max_conns: 1024
+max_persistent_conns: 512
+require: []
+
+wait: 30
+daemonize: true
