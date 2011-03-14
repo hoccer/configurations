@@ -67,6 +67,8 @@ God.watch do |w|
   w.group = "production"
   w.log = "/var/www/monitor.hoccer.com/log/node.log"
 
+  w.env = { 'NODE_PATH' => "/home/xadmin/.node_libraries" }
+
   deamon = "/usr/local/bin/node"
 
   w.start = "node /var/www/monitor.hoccer.com/worldaction.js --port=8090"
