@@ -13,7 +13,7 @@ def apply_default_state_transitions(w, options = {})
       c.running = true
       c.interval = 5
     end
-    
+
     # check five times for this transition before a new 'start'
     on.condition(:tries) do |c|
       c.times = 5
@@ -25,25 +25,25 @@ def apply_default_state_transitions(w, options = {})
   # restart if process is not running
   w.transition(:up, :start) do |on|
     on.condition(:process_exits)
-  end 
+  end
 
   # restart if memory or cpu is too high
   w.transition(:up, :restart) do |on|
     on.condition(:memory_usage) do |c|
       c.interval = 20
-      options[:memory_max] |= 200.megabytes
+      options[:memory_max] ||= 200.megabytes
       c.above = options[:memory_max]
       c.times = [3, 5]
       c.notify = @developer_info
     end
-    
+
     on.condition(:cpu_usage) do |c|
       c.interval = 10
       c.above = 40.percent
       c.times = [3, 5]
       c.notify = @developer_info
     end
-  end  
+  end
 
   w.lifecycle do |on|
 
@@ -68,17 +68,18 @@ def thin_monitoring(w, options = {})
 
   thin = "/usr/local/rvm/bin/#{options[:service]}_#{options[:tire]}_thin"
   config = "/etc/thin/#{options[:service]}.#{options[:tire]}.yml"
-  
+
   w.start = "#{thin} start -C #{config}"
   #w.stop = "#{thin} stop -C #{config}"
   #w.restart = "#{thin} restart -C #{config}"
-  
+
   # using TERM signal to force emediate shutdown
   w.stop_signal = 'TERM'
   w.stop_timeout = 5.seconds
 
+  FileUtils.mkdir('/var/run/thin') unless File.exist?('/var/run/thin')
   w.pid_file = "/var/run/thin/#{options[:service]}.#{options[:tire]}.pid"
-  w.behavior(:clean_pid_file)  
+  w.behavior(:clean_pid_file)
   #File.chown(nil, 33, w.pid_file)
   #File.chmod(0664, w.pid_file)
 

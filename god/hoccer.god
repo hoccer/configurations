@@ -1,6 +1,6 @@
-pwd = File.dirname(__FILE__) 
-$LOAD_PATH.unshift pwd + '/extensions' 
-load "mongo_connections.rb" 
+pwd = File.dirname(__FILE__)
+$LOAD_PATH.unshift pwd + '/extensions'
+load "mongo_connections.rb"
 
 God.load "#{pwd}/contacts.god"
 God.load "#{pwd}/common.god"
@@ -12,7 +12,7 @@ God.load "#{pwd}/apis.god"
 God.load "#{pwd}/mongodbs.god"
 
 God.watch do |w|
-  
+
   w.interval = 30.seconds
   w.start_grace = 20.seconds
   w.restart_grace = 20.seconds
@@ -23,7 +23,7 @@ God.watch do |w|
 
   w.start = "/usr/local/rvm/bin/developer_thin start -C /etc/thin/developer.yml"
   w.stop = "/usr/local/rvm/bin/developer_thin stop -C /etc/thin/developer.yml"
-  
+
   w.pid_file = "/var/run/thin/developer.pid"
   w.behavior(:clean_pid_file)
 
