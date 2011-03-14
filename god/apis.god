@@ -48,7 +48,7 @@
 
     deamon = "/usr/local/bin/node"
 
-    w.start = "/usr/local/bin/node /var/www/filecache.#{tire}.hoccer.com/filecache.js --port=#{get_port( 'filecache', tire)}"
+    w.start = "#{deamon} /var/www/filecache.#{tire}.hoccer.com/filecache.js --port=#{get_port( 'filecache', tire)}"
     #w.stop = "mongo --eval 'db.shutdownServer();' admin"
 
     w.behavior(:clean_pid_file)
@@ -71,7 +71,7 @@ God.watch do |w|
 
   deamon = "/usr/local/bin/node"
 
-  w.start = "node /var/www/monitor.hoccer.com/worldaction.js --port=8090"
+  w.start = "#{deamon} /var/www/monitor.hoccer.com/worldaction.js --port=8090"
 
   w.behavior(:clean_pid_file)
 

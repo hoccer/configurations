@@ -1,5 +1,5 @@
 God.watch do |w|
-  
+
   w.interval = 30.seconds
   w.start_grace = 20.seconds
   w.restart_grace = 20.seconds
@@ -15,8 +15,8 @@ God.watch do |w|
   database = "/var/lib/mongodb"
 
   w.start = "#{deamon} --fork --logpath #{logdir}/MongoDB.log --logappend --dbpath #{database} --bind_ip 127.0.0.1 --pidfilepath #{w.pid_file}"
-  w.stop = "mongo --eval 'db.shutdownServer();' admin"
-  
+  w.stop = "/usr/local/bin/mongo --eval 'db.shutdownServer();' admin"
+
   w.behavior(:clean_pid_file)
 
   apply_default_state_transitions(w)
