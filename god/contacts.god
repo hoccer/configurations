@@ -11,12 +11,6 @@ God::Contacts::Email.defaults do |d|
 end
 
 God.contact(:email) do |c|
-  c.name = 'rodja'
-  c.group = 'developers'
-  c.to_email = 'rodja@hoccer.com'
-end
-
-God.contact(:email) do |c|
   c.name = 'john'
   c.group = 'developers'
   c.to_email = 'john@hoccer.com'
