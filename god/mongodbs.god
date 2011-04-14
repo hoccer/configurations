@@ -14,7 +14,7 @@ God.watch do |w|
   deamon = "/usr/local/bin/mongod"
   database = "/var/lib/mongodb"
 
-  w.start = "#{deamon} --fork --logpath #{logdir}/MongoDB.log --logappend --dbpath #{database} --bind_ip 127.0.0.1 --pidfilepath #{w.pid_file}"
+  w.start = "#{deamon} --fork --master --logpath #{logdir}/MongoDB.log --logappend --dbpath #{database} --bind_ip 127.0.0.1 --pidfilepath #{w.pid_file}"
   w.stop = "/usr/local/bin/mongo --eval 'db.shutdownServer();' admin"
 
   w.behavior(:clean_pid_file)

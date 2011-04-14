@@ -7,7 +7,7 @@ if ARGV.any?{|x| x == "config"}
   puts "graph_title Successful Lincc's per Server"
   puts "graph_category linccer"
   puts "graph_vlabel Codes"
-  #puts "graph_args --base 1000 -l 0 -u 100 --rigid"
+  puts "graph_args --base 1000 -l 0 -u 100 --rigid"
   puts "graph_period minute"
   %w(production sandbox beta).each_with_index do |code, index|
     puts "c#{code}.label #{code}"
