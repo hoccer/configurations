@@ -2,7 +2,7 @@
 chdir: /var/www/hoccer.com/v3/grouper
 user: www-data
 group: www-data
-environment: development
+environment: production
 address: 0.0.0.0
 port: 9411
 timeout: 30
