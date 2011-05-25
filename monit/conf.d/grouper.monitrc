@@ -1,0 +1,7 @@
+check process grouper with pidfile /var/run/thin/grouper.production.pid
+  start program = "/etc/init.d/grouper_production_thin start" with timeout 60 seconds
+  stop program  = "/etc/init.d/grouper_production_thin stop"
+  if cpu > 90% for 5 cycles then restart
+  if loadavg(5min) greater than 10 for 8 cycles then stop
+  if 3 restarts within 5 cycles then timeout
+  group grouper
