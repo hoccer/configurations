@@ -1,0 +1,11 @@
+/var/www/production.hoccer.com/v3/grouper/log/thin.log {
+    missingok
+    weekly
+    size 3000M
+    create 0664 www-data www-data
+    rotate 4
+    dateext
+    postrotate
+        mv /var/www/production.hoccer.com/v3/grouper/log/*.gz /media/data/logs/grouper/
+    endscript
+}
