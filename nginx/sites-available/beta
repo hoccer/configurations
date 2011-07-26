@@ -1,0 +1,75 @@
+server {
+    listen 80;
+    server_name filecache.beta.hoccer.com;
+
+    location /v3 {
+    proxy_pass http://filecache_beta;
+        proxy_redirect     off;
+
+        proxy_set_header   Host             $host;
+        proxy_set_header   X-Real-IP        $remote_addr;
+        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+        proxy_buffering    off;
+    }
+}
+
+server {
+    listen 443;
+    server_name filecache.beta.hoccer.com;
+
+    ssl                   on;
+    ssl_certificate       /home/xadmin/star.hoccer.com.crt;
+    ssl_certificate_key   /home/xadmin/star.hoccer.com.key;
+
+    location /v3 {
+    proxy_pass http://filecache_beta;
+        proxy_redirect     off;
+
+        proxy_set_header   Host             $host;
+        proxy_set_header   X-Real-IP        $remote_addr;
+        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+        proxy_set_header   X-FORWARDED-PROTO https;
+        proxy_buffering    off;
+    }
+}
+
+
+server {
+    listen 80;
+    server_name linccer.beta.hoccer.com;
+
+    access_log /var/log/nginx/linccer.beta.hoccer.com-access_log combined;
+
+    location /v3 {
+        proxy_pass http://linccer_beta;
+        proxy_redirect     off;
+
+        proxy_set_header   Host             $host;
+        proxy_set_header   X-Real-IP        $remote_addr;
+        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+        proxy_buffering    on;
+    }
+}
+
+server {
+    listen 443;
+    server_name linccer.beta.hoccer.com;
+
+    ssl                   on;
+    ssl_certificate       /home/xadmin/linccer.beta.hoccer.com.crt;
+    ssl_certificate_key   /home/xadmin/linccer.beta.hoccer.com.key;
+
+    access_log /var/log/nginx/linccer.beta.hoccer.com_ssl-access_log combined;
+
+    location /v3 {
+        proxy_pass http://linccer_beta;
+        proxy_redirect      off;
+        proxy_read_timeout  300;
+
+        proxy_set_header    Host             $host;
+        proxy_set_header    X-Real-IP        $remote_addr;
+        proxy_set_header    X-Forwarded-For  $proxy_add_x_forwarded_for;
+        proxy_set_header    X-FORWARDED-PROTO https;
+        proxy_buffering     on;
+    }
+}

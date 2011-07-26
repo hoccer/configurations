@@ -1,0 +1,13 @@
+/var/www/production.hoccer.com/v3/linker/log/thin.log {
+    missingok
+    weekly
+    size 2500M
+    create 0664 www-data www-data
+    rotate 4
+    dateext
+    compress
+    postrotate
+        mv /var/www/production.hoccer.com/v3/linker/log/*.gz /media/data/logs/linccer/
+    endscript
+}
+
