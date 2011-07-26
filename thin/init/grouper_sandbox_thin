@@ -1,0 +1,40 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          thin
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      S 0 1 6
+# Short-Description: thin initscript
+# Description:       thin
+### END INIT INFO
+
+# Original author: Forrest Robertson
+
+# Do NOT "set -e"
+
+DAEMON=/usr/local/rvm/bin/grouper_sandbox_thin
+SCRIPT_NAME=/etc/init.d/grouper_sandbox_thin
+CONFIG_PATH=/etc/thin/grouper.sandbox.yml
+
+# Exit if the package is not installed
+[ -x "$DAEMON" ] || exit 0
+
+case "$1" in
+  start)
+        $DAEMON start -C $CONFIG_PATH
+        ;;
+  stop)
+        $DAEMON stop -C $CONFIG_PATH
+        ;;
+  restart)
+        $DAEMON stop -C $CONFIG_PATH
+        $DAEMON start -C $CONFIG_PATH
+        ;;
+  *)
+        echo "Usage: $SCRIPT_NAME {start|stop|restart}" >&2
+        exit 3
+        ;;
+esac
+
+:

@@ -1,0 +1,16 @@
+---
+chdir: /var/www/hoccer.com/v3/hoclet
+user: www-data
+group: www-data
+environment: production
+address: 0.0.0.0
+port: 9413
+timeout: 70
+log: log/thin.log
+pid: /var/run/thin/hoclet.production.pid
+max_conns: 10024
+max_persistent_conns: 5012
+require: []
+
+wait: 30
+daemonize: true
