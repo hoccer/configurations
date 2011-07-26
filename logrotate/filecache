@@ -1,0 +1,13 @@
+/var/www/filecache.hoccer.com/log/node.log{
+    missingok
+    weekly
+    size 300M
+    create 0664 root root
+    rotate 4
+    dateext
+    compress
+    postrotate
+        mv /var/www/filecache.hoccer.com/log/*.gz /media/data/logs/filecache/
+    endscript
+}
+
