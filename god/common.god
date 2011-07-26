@@ -29,13 +29,13 @@ def apply_default_state_transitions(w, options = {})
 
   # restart if memory or cpu is too high
   w.transition(:up, :restart) do |on|
-    on.condition(:memory_usage) do |c|
-      c.interval = 20
-      options[:memory_max] ||= 200.megabytes
-      c.above = options[:memory_max]
-      c.times = [3, 5]
-      c.notify = @developer_info
-    end
+  #  on.condition(:memory_usage) do |c|
+  #    c.interval = 20
+  #    options[:memory_max] ||= 200.megabytes
+  #    c.above = options[:memory_max]
+  #    c.times = [3, 5]
+  #    c.notify = @developer_info
+  #  end
 
     on.condition(:cpu_usage) do |c|
       c.interval = 10
