@@ -12,7 +12,7 @@ if ARGV.any?{|x| x == "config"}
 
   puts "graph_title Filecache HTTP Status Codes per minute"
   puts "graph_vlabel Codes"
-  puts "graph_args --base 1000 -l 0 -u 30 --rigid"
+  puts "graph_args --base 1000 -l 0 -u 300 --rigid"
   puts "graph_order c#{available_codes.join(' c')}"
   puts "graph_period minute"
   available_codes.each_with_index do |code, index|
