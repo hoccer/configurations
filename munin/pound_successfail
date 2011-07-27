@@ -9,7 +9,7 @@ if ARGV.any?{|x| x == "config"}
   puts "graph_vlabel Codes"
   puts "graph_args --base 1000 -l 0 -u 100 --rigid"
   puts "graph_period minute"
-  %w(success fail).each_with_index do |code, index|
+  %w(iphone_success iphone_fail android_success android_fail success fail).each_with_index do |code, index|
     puts "#{code}.label #{code}"
     puts "#{code}.type GAUGE"
     puts "#{code}.draw LINE1"
@@ -31,7 +31,28 @@ else
     x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\b(PUT|GET)\b/ && x =~ /\bHTTP\/1\.1\"\s(204|409)\b/ && x =~ /\b\/action\b/
   end
 
+  android_success = lines.select do |x|
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\b(PUT|GET)\b/ && x =~ /\bHTTP\/1\.1\"\s200\b/ && x =~ /\b\/action\b/ && x =~ /\sAndroid/
+  end
+
+  android_fails = lines.select do |x|
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\b(PUT|GET)\b/ && x =~ /\bHTTP\/1\.1\"\s(204|409)\b/ && x =~ /\b\/action\b/ && x =~ /\sAndroid/
+  end
+
+  iphone_success = lines.select do |x|
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\b(PUT|GET)\b/ && x =~ /\bHTTP\/1\.1\"\s200\b/ && x =~ /\b\/action\b/ && x =~ /\siPhone\s/
+  end
+
+  iphone_fails = lines.select do |x|
+    x =~ /\blinccer\.hoccer\.com\b/ && x =~ /\b(PUT|GET)\b/ && x =~ /\bHTTP\/1\.1\"\s(204|409)\b/ && x =~ /\b\/action\b/ && x =~ /\siPhone\s/
+  end
+
   puts "success.value #{success.size}"
   puts "fail.value #{fails.size}"
+  puts "android_success.value #{android_success.size}"
+  puts "android_fail.value #{android_fails.size}"
+  puts "iphone_success.value #{android_success.size}"
+  puts "iphone_fail.value #{android_fails.size}"
 
 end
+
