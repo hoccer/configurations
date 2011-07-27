@@ -1,0 +1,41 @@
+#!/usr/local/rvm/bin/munin_ruby
+
+# this virtual plugin was derived from
+# http://munin-monitoring.org/wiki/PercentGraphHowto
+# and http://munin-monitoring.org/wiki/faq
+
+if ARGV.any?{|x| x == "config"}
+
+  puts "update no"
+  puts "graph_category linccer"
+  puts "graph_title Android Success Rate"
+  puts "graph_vlabel Successrate"
+  puts "graph_args --base 1000 -l 0 -u 100 --rigid"
+  puts "graph_period minute"
+  #puts "graph_scale no"
+
+  puts "graph_order success=pound_successfail.android_success \
+fail=pound_successfail.android_fail \
+total=pound_successfail.android_fail \
+in_success=pound_successfail.android_success \
+in_fail=pound_successfail.android_fail"
+
+  puts "success.graph no"
+  puts "fail.graph no"
+
+  puts "total.label total"
+  puts "total.graph no"
+  puts "total.cdef success,fail,+"
+
+  puts "in_success.label success"
+  puts "in_success.draw AREA"
+  puts "in_success.cdef success,total,/,100,*"
+
+  puts "in_fail.label fail"
+  puts "in_fail.draw STACK"
+  puts "in_fail.cdef fail,total,/,100,*"
+else
+
+  # this is a virtual plugin and uses the data from pound_successfail
+
+end
